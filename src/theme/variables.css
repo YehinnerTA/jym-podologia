@@ -1,2 +1,40 @@
-/* For information on how to create your own theme, please refer to:
-http://ionicframework.com/docs/theming/ */
+:root,
+:root:root,
+html:root,
+body:root,
+.ion-page,
+ion-app {
+    /* ===== COLORES BASE ===== */
+    --color-black: #000000;
+    --color-white: #ffffff;
+    --color-white-light: #f5f7fa;
+    --color-gray: #4a5568;
+
+    /* ===== COLORES INSTITUCIONALES ===== */
+    --color-principal: #0b2545;
+    --color-secundario: #00a8b5;
+    --color-tercero: #e0f7fa;
+
+    /* ===== COLORES INSTITUCIONALES (DERIVADOS DIRECTOS) ===== */
+    --color-primary-dark: #061a33;
+    --color-bg-dark: #2f5da1;
+    --color-tercero-light: #e0f7fa;
+
+    /* Overlay y fondos */
+    --color-bg-overlay: rgba(11, 37, 69, 0.7);
+    --color-bg-overlay-light: rgba(11, 37, 69, 0.4);
+
+    /* ===== COLORES DE ESTADO ===== */
+    --color-exito: #06a77d;
+    --color-advertencia: #ffb703;
+    --color-peligro: #e63946;
+
+    /* ===== COLORES DE ACCIONES ===== */
+    --color-accion-view: #0b2545;
+    --color-accion-edit: #ffb703;
+    --color-accion-add: #06a77d;
+    --color-accion-devolucion: #6f42c1;
+    --color-accion-cocina: #fd7e14;
+    --color-accion-print: #6c757d;
+    --color-accion-trash: #e63946;
+}
