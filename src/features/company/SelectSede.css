@@ -1,0 +1,341 @@
+.ruc-selector-page {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, var(--color-principal) 0%, var(--color-bg-dark) 100%);
+    padding: 20px;
+}
+
+.ruc-selector-card {
+    max-width: 700px;
+    width: 100%;
+    background: var(--color-white);
+    border-radius: 28px;
+    padding: 32px 28px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+    transition: all 0.3s ease;
+}
+
+/* ===== HEADER ===== */
+.ruc-selector-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.ruc-selector-logo {
+    width: 90px;
+    height: auto;
+    margin-bottom: 1rem;
+}
+
+.ruc-selector-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--color-principal);
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+}
+
+/* ===== GRID DE SEDES ===== */
+.ruc-selector-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-bottom: 28px;
+}
+
+.ruc-selector-option {
+    background: #f8fafc;
+    border-radius: 24px;
+    padding: 24px 20px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 2px solid transparent;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.ruc-selector-option::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--color-secundario);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.ruc-selector-option:hover {
+    transform: translateY(-4px);
+    background: var(--color-white);
+    border-color: var(--color-tercero);
+    box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.1);
+}
+
+.ruc-selector-option:hover::before {
+    transform: scaleX(1);
+}
+
+.ruc-selector-option.active {
+    background: var(--color-white);
+    border-color: var(--color-secundario);
+    box-shadow: 0 20px 35px -10px rgba(0, 168, 181, 0.25);
+}
+
+.ruc-selector-option.active::before {
+    transform: scaleX(1);
+    background: var(--color-secundario);
+}
+
+/* ===== ICONO ===== */
+.ruc-selector-option-icon {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, var(--color-tercero) 0%, rgba(0, 168, 181, 0.3) 100%);
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px auto;
+    transition: all 0.3s ease;
+}
+
+.ruc-selector-option-icon i {
+    font-size: 2rem;
+    color: var(--color-secundario);
+    transition: color 0.3s ease;
+}
+
+.ruc-selector-option.active .ruc-selector-option-icon {
+    background: linear-gradient(135deg, var(--color-secundario) 0%, var(--color-primary-dark) 100%);
+    transform: scale(1.05);
+}
+
+.ruc-selector-option.active .ruc-selector-option-icon i {
+    color: var(--color-white);
+}
+
+/* ===== TEXTOS ===== */
+.ruc-selector-option-code {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--color-principal);
+    letter-spacing: -0.5px;
+    margin-bottom: 6px;
+}
+
+.ruc-selector-option-label {
+    font-size: 0.9rem;
+    color: var(--color-gray);
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.ruc-selector-option-address {
+    font-size: 0.75rem;
+    color: var(--color-gray);
+    opacity: 0.7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    margin-top: 6px;
+}
+
+.ruc-selector-option.active .ruc-selector-option-label {
+    color: var(--color-secundario);
+}
+
+/* ===== BADGES ===== */
+.ruc-selector-badge {
+    background: var(--color-white);
+    padding: 5px 14px;
+    border-radius: 40px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #94a3b8;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 0.5rem;
+    border: 1px solid #e2e8f0;
+}
+
+.ruc-selector-badge.selected {
+    background: var(--color-secundario);
+    color: var(--color-white);
+    border-color: var(--color-secundario);
+}
+
+.ruc-selector-badge.predeterminada {
+    background: var(--color-exito);
+    color: var(--color-white);
+    border-color: var(--color-exito);
+}
+
+/* ===== ESTADO ===== */
+.ruc-selector-status {
+    background: #f1f5f9;
+    border-radius: 20px;
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+}
+
+.ruc-selector-status-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.85rem;
+    color: var(--color-gray);
+}
+
+.ruc-selector-status-left i {
+    font-size: 1rem;
+    color: var(--color-secundario);
+    background: var(--color-white);
+    padding: 6px;
+    border-radius: 10px;
+}
+
+.ruc-selector-status-value {
+    color: var(--color-secundario);
+    font-weight: 700;
+    margin-left: 4px;
+}
+
+/* ===== BOTÓN CONTINUAR ===== */
+.ruc-selector-actions {
+    text-align: center;
+}
+
+.ruc-selector-continue {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    padding: 0.9rem 2rem;
+    background: var(--color-secundario);
+    color: var(--color-white);
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 0.75rem;
+    border: none;
+    cursor: pointer;
+    transition: all 250ms ease;
+    letter-spacing: 0.03em;
+    font-family: 'Acme', sans-serif;
+}
+
+.ruc-selector-continue:hover:not(:disabled) {
+    background: var(--color-primary-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+.ruc-selector-continue:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.ruc-selector-continue i {
+    font-size: 0.95rem;
+    transition: transform 150ms ease;
+}
+
+.ruc-selector-continue:hover:not(:disabled) i {
+    transform: translateX(3px);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 560px) {
+    .ruc-selector-page {
+        padding: 16px;
+    }
+
+    .ruc-selector-card {
+        padding: 24px 20px;
+    }
+
+    .ruc-selector-grid {
+        gap: 14px;
+        margin-bottom: 20px;
+    }
+
+    .ruc-selector-option {
+        padding: 20px 16px;
+    }
+
+    .ruc-selector-option-icon {
+        width: 56px;
+        height: 56px;
+    }
+
+    .ruc-selector-option-icon i {
+        font-size: 1.8rem;
+    }
+
+    .ruc-selector-option-code {
+        font-size: 1.2rem;
+    }
+
+    .ruc-selector-status {
+        padding: 12px 16px;
+    }
+
+    .ruc-selector-status-left {
+        font-size: 0.75rem;
+    }
+}
+
+@media (max-width: 420px) {
+    .ruc-selector-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .ruc-selector-option {
+        padding: 18px 16px;
+        display: flex;
+        align-items: center;
+        text-align: left;
+        gap: 16px;
+    }
+
+    .ruc-selector-option-icon {
+        width: 50px;
+        height: 50px;
+        margin: 0;
+    }
+
+    .ruc-selector-option-icon i {
+        font-size: 1.6rem;
+    }
+
+    .ruc-selector-option-code {
+        font-size: 1.1rem;
+        margin-bottom: 2px;
+    }
+
+    .ruc-selector-option-address {
+        justify-content: flex-start;
+    }
+
+    .ruc-selector-status {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .ruc-selector-continue {
+        width: 100%;
+    }
+}

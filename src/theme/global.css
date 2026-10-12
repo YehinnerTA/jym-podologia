@@ -1,0 +1,369 @@
+/* App Button Styles */
+.app-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    border: none;
+    border-radius: 0.75rem;
+    font-family: 'Acme', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 250ms ease;
+    letter-spacing: 0.03em;
+    outline: none;
+}
+
+.app-btn:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+/* Tamaños */
+.app-btn-sm {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+}
+
+.app-btn-md {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+}
+
+.app-btn-lg {
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+}
+
+.app-btn-full {
+    width: 100%;
+}
+
+/* Variantes */
+.app-btn-primary {
+    background: var(--color-secundario);
+    color: var(--color-white);
+}
+
+.app-btn-primary:hover:not(:disabled) {
+    background: var(--color-primary-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.app-btn-secondary {
+    background: var(--color-principal);
+    color: var(--color-white);
+}
+
+.app-btn-secondary:hover:not(:disabled) {
+    background: var(--color-primary-dark);
+    transform: translateY(-1px);
+}
+
+.app-btn-success {
+    background: var(--color-exito);
+    color: var(--color-white);
+}
+
+.app-btn-success:hover:not(:disabled) {
+    filter: brightness(0.9);
+    transform: translateY(-1px);
+}
+
+.app-btn-danger {
+    background: var(--color-peligro);
+    color: var(--color-white);
+}
+
+.app-btn-danger:hover:not(:disabled) {
+    filter: brightness(0.9);
+    transform: translateY(-1px);
+}
+
+.app-btn-ghost {
+    background: transparent;
+    color: var(--color-secundario);
+    border: 2px solid var(--color-secundario);
+}
+
+.app-btn-ghost:hover:not(:disabled) {
+    background: var(--color-secundario);
+    color: var(--color-white);
+}
+
+/* Iconos */
+.app-btn i {
+    font-size: 1em;
+    transition: transform 150ms ease;
+}
+
+.app-btn:hover:not(:disabled) i {
+    transform: translateX(2px);
+}
+
+.app-btn-loading i {
+    transform: none !important;
+}
+
+/* App Input Styles */
+.app-input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.app-input-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-principal);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.app-input-label-icon {
+    color: var(--color-secundario);
+    font-size: 0.75rem;
+    width: 16px;
+    text-align: center;
+}
+
+.app-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.app-input-icon {
+    position: absolute;
+    left: 1rem;
+    color: var(--color-gray);
+    opacity: 0.5;
+    font-size: 0.875rem;
+    pointer-events: none;
+}
+
+.app-input {
+    width: 100%;
+    padding: 0.75rem 4.5rem 0.75rem 2.5rem;
+    font-size: 1rem;
+    font-family: 'Acme', sans-serif;
+    color: var(--color-principal);
+    background: var(--color-white);
+    border: 2px solid #e2e8f0;
+    border-radius: 0.75rem;
+    transition: all 250ms ease;
+    outline: none;
+}
+
+.app-input:focus {
+    border-color: var(--color-secundario);
+    box-shadow: 0 0 0 3px rgba(0, 168, 181, 0.15);
+}
+
+.app-input::placeholder {
+    color: #a0aec0;
+    opacity: 1;
+}
+
+.app-input-wrapper.app-input-error {
+    border-radius: 0.75rem;
+}
+
+.app-input-wrapper.app-input-error .app-input {
+    border-color: var(--color-peligro);
+    box-shadow: 0 0 0 3px rgba(230, 57, 70, 0.1);
+    background: rgba(230, 57, 70, 0.03);
+}
+
+.app-input-wrapper.app-input-success .app-input {
+    border-color: var(--color-exito);
+    box-shadow: 0 0 0 3px rgba(6, 167, 125, 0.1);
+    background: rgba(6, 167, 125, 0.03);
+}
+
+.app-input-wrapper.app-input-warning .app-input {
+    border-color: var(--color-advertencia);
+    box-shadow: 0 0 0 3px rgba(255, 183, 3, 0.15);
+    background: rgba(255, 183, 3, 0.03);
+}
+
+.app-input-toggle {
+    position: absolute;
+    right: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--color-gray);
+    opacity: 0.6;
+    padding: 0.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 150ms ease, color 150ms ease;
+    z-index: 2;
+}
+
+.app-input-toggle:hover,
+.app-input-toggle:focus {
+    opacity: 1;
+    color: var(--color-secundario);
+    outline: none;
+}
+
+.app-input-validation {
+    position: absolute;
+    right: 0.75rem;
+    font-size: 1.125rem;
+    pointer-events: none;
+}
+
+.app-input-validation.success {
+    color: var(--color-exito);
+}
+
+.app-input-validation.error {
+    color: var(--color-peligro);
+}
+
+.app-input-validation.warning {
+    color: var(--color-advertencia);
+}
+
+.app-input-message {
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    color: var(--color-peligro);
+    background: rgba(230, 57, 70, 0.06);
+    border: 1px solid rgba(230, 57, 70, 0.2);
+}
+
+/* App Card Styles */
+.app-card {
+    background: var(--color-white);
+    border-radius: 1.5rem;
+    box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.25);
+    transition: all 300ms ease;
+}
+
+.app-card-sm {
+    padding: 1rem;
+}
+
+.app-card-md {
+    padding: 2rem;
+}
+
+.app-card-lg {
+    padding: 2.5rem;
+}
+
+/* App Loader Styles */
+.app-loader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 2rem;
+    color: var(--color-gray);
+}
+
+.app-loader i {
+    font-size: 2rem;
+    color: var(--color-secundario);
+}
+
+.app-loader p {
+    font-size: 0.95rem;
+    margin: 0;
+}
+
+.app-loader-full {
+    min-height: 100vh;
+    background: var(--color-principal);
+    color: var(--color-white);
+}
+
+.app-loader-full i {
+    color: var(--color-tercero);
+}
+
+/* App Badge Styles */
+.app-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 14px;
+    margin: .8px;
+    border-radius: 40px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border: 1px solid transparent;
+}
+
+.app-badge-default {
+    background: var(--color-white);
+    color: #94a3b8;
+    border-color: #e2e8f0;
+}
+
+.app-badge-primary {
+    background: var(--color-secundario);
+    color: var(--color-white);
+}
+
+.app-badge-success {
+    background: var(--color-exito);
+    color: var(--color-white);
+}
+
+.app-badge-danger {
+    background: var(--color-peligro);
+    color: var(--color-white);
+}
+
+.app-badge-warning {
+    background: var(--color-advertencia);
+    color: var(--color-principal);
+}
+
+/* App Empty State Styles */
+.app-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 1.5rem;
+    text-align: center;
+    color: var(--color-gray);
+}
+
+.app-empty i {
+    font-size: 3rem;
+    color: var(--color-advertencia);
+    margin-bottom: 1rem;
+}
+
+.app-empty h3 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-principal);
+    margin-bottom: 0.5rem;
+}
+
+.app-empty p {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    margin-bottom: 1.5rem;
+}
+
+.app-empty-action {
+    margin-top: 0.5rem;
+}
