@@ -640,3 +640,75 @@
         display: none;
     }
 }
+
+/* ===== NAV DESKTOP ===== */
+.jym-nav {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    margin: 0 1rem;
+}
+
+.jym-nav-links {
+    display: flex;
+    gap: 0.25rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.jym-nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.9rem;
+    background: transparent;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-family: 'Acme', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-gray);
+    transition: all 150ms;
+    white-space: nowrap;
+}
+
+.jym-nav-link i {
+    font-size: 0.85rem;
+    color: var(--color-secundario);
+    opacity: 0.7;
+    transition: opacity 150ms;
+}
+
+.jym-nav-link:hover {
+    background: var(--color-tercero);
+    color: var(--color-secundario);
+}
+
+.jym-nav-link:hover i {
+    opacity: 1;
+}
+
+.jym-nav-link.active {
+    background: var(--color-secundario);
+    color: var(--color-white);
+}
+
+.jym-nav-link.active i {
+    color: var(--color-white);
+    opacity: 1;
+}
+
+/* Ocultar nav desktop en móvil */
+@media (max-width: 1024px) {
+    .jym-nav {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .jym-nav {
+        display: none;
+    }
+}

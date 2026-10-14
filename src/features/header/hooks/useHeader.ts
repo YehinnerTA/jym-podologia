@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../auth/context/AuthContext';
 import { useCompany } from '../../company/context/CompanyContext';
@@ -6,12 +6,25 @@ import { useHeaderNotifications } from './useHeaderNotifications';
 import { useHeaderMobileMenu } from './useHeaderMobileMenu';
 import { NavLink } from '../header';
 
-const ALL_LINKS: NavLink[] = [
-    { name: 'Dashboard', path: '/dashboard', icon: 'fa-solid fa-chart-pie' },
-    { name: 'Citas', path: '/citas', icon: 'fa-solid fa-calendar-check' },
-    { name: 'Pacientes', path: '/pacientes', icon: 'fa-solid fa-users' },
-    { name: 'Calendario', path: '/calendario', icon: 'fa-solid fa-calendar-days' },
-];
+const LINKS_BY_ROLE: Record<string, NavLink[]> = {
+    admin: [
+        { name: 'Dashboard', path: '/dashboard', icon: 'fa-solid fa-chart-pie' },
+        { name: 'Citas', path: '/citas', icon: 'fa-solid fa-calendar-check' },
+        { name: 'Personas', path: '/personas', icon: 'fa-solid fa-users' },
+        { name: 'Sedes', path: '/sedes', icon: 'fa-solid fa-hospital' },
+        { name: 'Calendario', path: '/calendario', icon: 'fa-solid fa-calendar-days' },
+    ],
+    staff: [
+        { name: 'Dashboard', path: '/dashboard', icon: 'fa-solid fa-chart-pie' },
+        { name: 'Citas', path: '/citas', icon: 'fa-solid fa-calendar-check' },
+        { name: 'Personas', path: '/personas', icon: 'fa-solid fa-users' },
+        { name: 'Calendario', path: '/calendario', icon: 'fa-solid fa-calendar-days' },
+    ],
+    paciente: [
+        { name: 'Dashboard', path: '/dashboard', icon: 'fa-solid fa-chart-pie' },
+        { name: 'Mis Citas', path: '/citas', icon: 'fa-solid fa-calendar-check' },
+    ],
+};
 
 export const useHeader = () => {
     const navigate = useNavigate();
@@ -25,6 +38,12 @@ export const useHeader = () => {
 
     const sedeActiva = sedes.find(s => s.id === selectedSede) || null;
     const multiplesSedes = sedes.length > 1;
+
+    // Links según el rol
+    const navLinks = useMemo(() => {
+        if (!role) return [];
+        return LINKS_BY_ROLE[role] || [];
+    }, [role]);
 
     const handleLogout = useCallback(async () => {
         await logout();
@@ -45,32 +64,21 @@ export const useHeader = () => {
     }, [navigate]);
 
     return {
-        // Usuario
         user,
         role,
         subRol,
         nombreUsuario,
         inicialUsuario,
-
-        // Sede
         sedes,
         sedeActiva,
         selectedSede,
         multiplesSedes,
         handleSedeChange,
-
-        // Navegación
-        navLinks: ALL_LINKS,
+        navLinks,
         handleNavigate,
         handleLogoClick,
-
-        // Notificaciones
         ...notifications,
-
-        // Menú móvil
         mobileMenu,
-
-        // Logout
         handleLogout,
     };
 };

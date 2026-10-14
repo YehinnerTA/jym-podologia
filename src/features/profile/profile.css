@@ -1,0 +1,221 @@
+/* ============================================================
+   MI PERFIL - J&M Podología
+   ============================================================ */
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: linear-gradient(135deg, var(--color-tercero) 0%, rgba(0, 168, 181, 0.15) 100%);
+    border-radius: 1rem;
+    margin-bottom: 1.25rem;
+}
+
+.profile-avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--color-secundario) 0%, var(--color-principal) 100%);
+    color: var(--color-white);
+    font-size: 1.6rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.profile-header-info h2 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--color-principal);
+    margin: 0 0 0.2rem;
+}
+
+.profile-role {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: var(--color-secundario);
+    background: rgba(0, 168, 181, 0.15);
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    margin: 0 0 0.3rem;
+}
+
+.profile-email {
+    font-size: 0.8rem;
+    color: var(--color-gray);
+    opacity: 0.8;
+    margin: 0;
+}
+
+/* Tabs */
+.profile-tabs {
+    display: flex;
+    gap: 0.25rem;
+    border-bottom: 1px solid #e2e8f0;
+    margin-bottom: 1.25rem;
+    overflow-x: auto;
+}
+
+.profile-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    color: var(--color-gray);
+    font-family: 'Acme', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 150ms;
+    white-space: nowrap;
+}
+
+.profile-tab i {
+    font-size: 0.85rem;
+}
+
+.profile-tab:hover {
+    color: var(--color-secundario);
+}
+
+.profile-tab.active {
+    color: var(--color-secundario);
+    border-bottom-color: var(--color-secundario);
+}
+
+/* Content */
+.profile-content {
+    animation: profileFadeIn 0.2s ease;
+}
+
+@keyframes profileFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.profile-section-title {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--color-principal);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 1rem 0 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.profile-section-title i {
+    color: var(--color-secundario);
+}
+
+.profile-section-title.locked i {
+    color: var(--color-gray);
+    opacity: 0.6;
+}
+
+.profile-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.profile-full {
+    grid-column: 1 / -1;
+}
+
+.profile-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e2e8f0;
+}
+
+.profile-success {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    background: rgba(6, 167, 125, 0.08);
+    color: var(--color-exito);
+    border: 1px solid rgba(6, 167, 125, 0.25);
+    border-radius: 0.5rem;
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+}
+
+.profile-error {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    background: rgba(230, 57, 70, 0.08);
+    color: var(--color-peligro);
+    border: 1px solid rgba(230, 57, 70, 0.25);
+    border-radius: 0.5rem;
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+}
+
+.profile-warning {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.85rem 1rem;
+    background: rgba(255, 183, 3, 0.1);
+    color: #9c6f00;
+    border: 1px solid rgba(255, 183, 3, 0.3);
+    border-radius: 0.5rem;
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+}
+
+.profile-warning i {
+    font-size: 1.1rem;
+    color: var(--color-advertencia);
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+    .profile-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .profile-tabs {
+        justify-content: flex-start;
+    }
+
+    .profile-tab {
+        flex: 1;
+        justify-content: center;
+        font-size: 0.75rem;
+        padding: 0.6rem 0.5rem;
+    }
+
+    .profile-actions button {
+        width: 100%;
+    }
+}

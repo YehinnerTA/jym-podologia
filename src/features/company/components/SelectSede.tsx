@@ -1,16 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCompany } from '../context/CompanyContext';
+import { useAuth } from '../../auth/context/AuthContext';
 import { SedeSelectorMenuProps } from '../sede';
 import { AppButton, AppCard, AppLoader, AppBadge, AppEmptyState } from '../../../components';
 import '../SelectSede.css';
 
 export const SelectSede: React.FC<SedeSelectorMenuProps> = ({
     onSelect,
-    redirectTo = '/sedes',
+    redirectTo = '/dashboard',
 }) => {
     const navigate = useNavigate();
     const { selectedSede, setSelectedSede, sedes, isLoading } = useCompany();
+    const { role } = useAuth();
+
+    useEffect(() => {
+        if (!isLoading && sedes.length === 1) {
+            setSelectedSede(sedes[0].id);
+            navigate(redirectTo, { replace: true });
+        }
+    }, [isLoading, sedes, setSelectedSede, navigate, redirectTo]);
 
     if (isLoading) {
         return (
@@ -28,8 +37,12 @@ export const SelectSede: React.FC<SedeSelectorMenuProps> = ({
                 <AppCard padding="md">
                     <AppEmptyState
                         icon="fa-solid fa-exclamation-triangle"
-                        title="Sin sedes"
-                        message="No hay sedes registradas. Contacta al administrador."
+                        title="Sin sedes asignadas"
+                        message={
+                            role === 'admin'
+                                ? 'No hay sedes registradas. Crea una sede primero.'
+                                : 'No tienes sedes asignadas. Contacta al administrador.'
+                        }
                     />
                 </AppCard>
             </div>

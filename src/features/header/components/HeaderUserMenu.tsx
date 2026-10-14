@@ -6,6 +6,7 @@ interface Props {
     email: string;
     subRol: string | null;
     onLogout: () => void;
+    onOpenProfile: () => void;
 }
 
 export const HeaderUserMenu: React.FC<Props> = ({
@@ -14,6 +15,7 @@ export const HeaderUserMenu: React.FC<Props> = ({
     email,
     subRol,
     onLogout,
+    onOpenProfile,
 }) => {
     const [isOpen, setIsOpen] = useState(false);
     const ref = useRef<HTMLDivElement>(null);
@@ -56,7 +58,7 @@ export const HeaderUserMenu: React.FC<Props> = ({
                         </div>
                     </div>
                     <div className="jym-user-dropdown-divider"></div>
-                    <button type="button" className="jym-user-dropdown-item">
+                    <button type="button" className="jym-user-dropdown-item" onClick={() => { onOpenProfile(); setIsOpen(false); }} >
                         <i className="fa-solid fa-user"></i> Mi perfil
                     </button>
                     <button type="button" className="jym-user-dropdown-item">

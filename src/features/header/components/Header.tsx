@@ -1,19 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useHeader } from '../hooks/useHeader';
 import { HeaderSedeSelector } from './HeaderSedeSelector';
 import { HeaderNotifications } from './HeaderNotifications';
 import { HeaderUserMenu } from './HeaderUserMenu';
 import { HeaderMobileMenu } from './HeaderMobileMenu';
+import { MyProfile } from '../../profile/components/MyProfile';
 import '../header.css';
 
 const Header: React.FC = () => {
+    const [profileOpen, setProfileOpen] = useState(false);
+    const location = useLocation();
+
     const {
         user,
         subRol,
         nombreUsuario,
         inicialUsuario,
         sedes,
-        sedeActiva,
         selectedSede,
         multiplesSedes,
         handleSedeChange,
@@ -59,6 +63,27 @@ const Header: React.FC = () => {
                         <span className="jym-logo-text">J&M Podología</span>
                     </button>
 
+                    {/* Navegación desktop */}
+                    <nav className="jym-nav">
+                        <ul className="jym-nav-links">
+                            {navLinks.map((link) => {
+                                const isActive = location.pathname === link.path;
+                                return (
+                                    <li key={link.path}>
+                                        <button
+                                            type="button"
+                                            className={`jym-nav-link ${isActive ? 'active' : ''}`}
+                                            onClick={() => handleNavigate(link.path)}
+                                        >
+                                            <i className={link.icon}></i>
+                                            <span>{link.name}</span>
+                                        </button>
+                                    </li>
+                                );
+                            })}
+                        </ul>
+                    </nav>
+
                     {/* Sede */}
                     <div className="jym-header-sede">
                         <HeaderSedeSelector
@@ -87,6 +112,7 @@ const Header: React.FC = () => {
                             email={user?.email || ''}
                             subRol={subRol}
                             onLogout={handleLogout}
+                            onOpenProfile={() => setProfileOpen(true)}
                         />
                     </div>
                 </div>
@@ -107,6 +133,8 @@ const Header: React.FC = () => {
                 nombre={nombreUsuario}
                 inicial={inicialUsuario}
             />
+
+            <MyProfile isOpen={profileOpen} onClose={() => setProfileOpen(false)} />
         </>
     );
 };

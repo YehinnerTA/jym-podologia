@@ -1,6 +1,7 @@
-import React, { useState, useRef, FormEvent, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { useCompany } from '../../company/context/CompanyContext';
 import { useLoginValidation } from '../hooks/useLoginValidation';
 import { AppButton, AppInput, AppCard, AppLoader } from '../../../components';
 import '../login.css';
@@ -8,18 +9,28 @@ import '../login.css';
 export const Login: React.FC = () => {
     const navigate = useNavigate();
     const { login, isAuthenticated, isLoading: authLoading } = useAuth();
+    const { sedes, isLoading: sedesLoading } = useCompany();
     const { state, updateEmail, updatePassword, validateAll } = useLoginValidation();
 
     const [rememberMe, setRememberMe] = useState<boolean>(false);
     const [message, setMessage] = useState('');
     const [messageType, setMessageType] = useState<'error' | 'success'>('error');
     const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+    const [loginSuccess, setLoginSuccess] = useState(false);
 
     useEffect(() => {
-        if (isAuthenticated) {
-            navigate('/select-sede');
-        }
-    }, [isAuthenticated, navigate]);
+        if (!isAuthenticated || authLoading || sedesLoading) return;
+
+        const timeout = setTimeout(() => {
+            if (sedes.length > 1) {
+                navigate('/select-sede', { replace: true });
+            } else {
+                navigate('/dashboard', { replace: true });
+            }
+        }, 50);
+
+        return () => clearTimeout(timeout);
+    }, [isAuthenticated, authLoading, sedesLoading, sedes.length, navigate]);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -35,8 +46,7 @@ export const Login: React.FC = () => {
         try {
             const ok = await login(state.email.value, state.password.value, rememberMe);
             if (ok) {
-                setMessage('Inicio de sesión exitoso');
-                setMessageType('success');
+                setLoginSuccess(true); // ← activa el loader inmediatamente
             } else {
                 setMessage('Credenciales incorrectas');
                 setMessageType('error');
@@ -50,6 +60,15 @@ export const Login: React.FC = () => {
     };
 
     const isLoading = isSubmitting || authLoading;
+
+    if (isAuthenticated && (authLoading || sedesLoading)) {
+        return (
+            <AppLoader
+                fullScreen
+                message="Preparando tu sesión..."
+            />
+        );
+    }
 
     return (
         <div className="login-page-body">
