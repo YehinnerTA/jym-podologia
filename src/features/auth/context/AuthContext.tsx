@@ -14,6 +14,7 @@ import { auth, db } from '../../../config/firebase';
 interface AuthContextType {
     user: User | null;
     role: string | null;
+    subRol: string | null;
     isAuthenticated: boolean;
     isLoading: boolean;
     login: (email: string, password: string, rememberMe: boolean) => Promise<boolean>;
@@ -25,6 +26,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
     const [user, setUser] = useState<User | null>(null);
     const [role, setRole] = useState<string | null>(null);
+    const [subRol, setSubRol] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState<boolean>(true);
 
     useEffect(() => {
@@ -34,10 +36,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
                 const userDoc = await getDoc(doc(db, 'usuarios', firebaseUser.uid));
                 if (userDoc.exists()) {
                     setRole(userDoc.data().rol || null);
+                    setSubRol(userDoc.data().subRol || null);
                 }
             } else {
                 setUser(null);
                 setRole(null);
+                setSubRol(null);
             }
             setIsLoading(false);
         });
@@ -64,6 +68,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             value={{
                 user,
                 role,
+                subRol,
                 isAuthenticated: !!user,
                 isLoading,
                 login,
