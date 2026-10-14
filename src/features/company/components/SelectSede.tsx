@@ -7,7 +7,7 @@ import '../SelectSede.css';
 
 export const SelectSede: React.FC<SedeSelectorMenuProps> = ({
     onSelect,
-    redirectTo = '/dashboard',
+    redirectTo = '/sedes',
 }) => {
     const navigate = useNavigate();
     const { selectedSede, setSelectedSede, sedes, isLoading } = useCompany();
