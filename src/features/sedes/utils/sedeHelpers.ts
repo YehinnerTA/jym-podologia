@@ -1,4 +1,7 @@
-import { SedeFormData, SedeFormErrors } from '../sede';
+import {
+    SedeFormData,
+    SedeFormErrors,
+} from '../sede';
 
 export const DIAS_LABELS: Record<string, string> = {
     lunes: 'Lunes',
@@ -10,31 +13,65 @@ export const DIAS_LABELS: Record<string, string> = {
     domingo: 'Domingo',
 };
 
-export const validateSedeForm = (data: SedeFormData): SedeFormErrors => {
+export const validateSedeForm = (
+    data: SedeFormData
+): SedeFormErrors => {
     const errors: SedeFormErrors = {};
 
-    if (!data.nombre.trim()) errors.nombre = 'El nombre es obligatorio';
-    else if (data.nombre.trim().length < 3) errors.nombre = 'Mínimo 3 caracteres';
+    // Nombre de la sede
+    if (!data.nombre.trim()) {
+        errors.nombre = 'El nombre es obligatorio';
+    } else if (data.nombre.trim().length < 3) {
+        errors.nombre = 'Mínimo 3 caracteres';
+    }
 
-    if (!data.ruc.trim()) errors.ruc = 'El RUC es obligatorio';
-    else if (!/^\d{11}$/.test(data.ruc.trim()))
-        errors.ruc = 'El RUC debe tener 11 dígitos';
+    // Dirección
+    if (!data.direccion.trim()) {
+        errors.direccion = 'La dirección es obligatoria';
+    }
 
-    if (!data.direccion.trim()) errors.direccion = 'La dirección es obligatoria';
-
-    if (data.telefono && !/^[\d\s+()-]{6,}$/.test(data.telefono))
+    // Teléfono (opcional)
+    if (
+        data.telefono &&
+        !/^[\d\s+()-]{6,}$/.test(data.telefono)
+    ) {
         errors.telefono = 'Teléfono inválido';
+    }
 
-    if (data.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email))
+    // Correo electrónico (opcional)
+    if (
+        data.email &&
+        !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)
+    ) {
         errors.email = 'Email inválido';
+    }
 
-    if (data.cuposPorHorario < 1) errors.cuposPorHorario = 'Mínimo 1 cupo';
-    if (data.cuposPorHorario > 20) errors.cuposPorHorario = 'Máximo 20 cupos';
+    // Cupos por horario
+    if (
+        !Number.isInteger(data.cuposPorHorario) ||
+        data.cuposPorHorario < 1
+    ) {
+        errors.cuposPorHorario =
+            'Debe haber al menos 1 cupo por horario';
+    } else if (data.cuposPorHorario > 20) {
+        errors.cuposPorHorario =
+            'Máximo 20 cupos por horario';
+    }
 
-    if (data.habitaciones < 1) errors.habitaciones = 'Mínimo 1 habitación';
+    // Habitaciones
+    if (
+        !Number.isInteger(data.habitaciones) ||
+        data.habitaciones < 1
+    ) {
+        errors.habitaciones =
+            'Debe haber al menos 1 habitación';
+    }
 
     return errors;
 };
 
-export const hasErrors = (errors: SedeFormErrors): boolean =>
-    Object.keys(errors).length > 0;
+export const hasErrors = (
+    errors: SedeFormErrors
+): boolean => {
+    return Object.keys(errors).length > 0;
+};

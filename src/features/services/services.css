@@ -1,0 +1,448 @@
+/* Página */
+.service-page {
+    padding: 1.5rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.service-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.service-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--color-principal);
+    margin: 0 0 0.25rem;
+    letter-spacing: -0.02em;
+}
+
+.service-subtitle {
+    font-size: 0.9rem;
+    color: var(--color-gray);
+    opacity: 0.8;
+    margin: 0;
+}
+
+/* Filtros */
+.service-filters-card {
+    margin-bottom: 1.25rem;
+}
+
+.service-filters {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.service-filters-search {
+    min-width: 0;
+}
+
+/* Listado */
+.service-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill,
+            minmax(320px, 1fr));
+    gap: 1.25rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Tarjeta */
+.service-card {
+    background: var(--color-white);
+    border-radius: 1rem;
+    padding: 1.25rem;
+    box-shadow: 0 4px 12px rgba(11, 37, 69, 0.06);
+    border: 1px solid #e2e8f0;
+    transition: all 250ms ease;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.service-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 24px rgba(11, 37, 69, 0.1);
+    border-color: var(--color-tercero);
+}
+
+.service-card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.service-card-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg,
+            var(--color-secundario),
+            var(--color-principal));
+    color: var(--color-white);
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.service-card-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.service-card-name {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--color-principal);
+    margin: 0 0 0.15rem;
+    overflow-wrap: anywhere;
+}
+
+.service-card-category {
+    font-size: 0.75rem;
+    color: var(--color-gray);
+    margin: 0;
+}
+
+.service-card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex: 1;
+}
+
+.service-card-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--color-gray);
+}
+
+.service-card-row i {
+    color: var(--color-secundario);
+    width: 14px;
+    text-align: center;
+    flex-shrink: 0;
+    margin-top: 0.15rem;
+}
+
+.service-card-row span {
+    overflow-wrap: anywhere;
+}
+
+/* Estado */
+.service-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-top: 0.5rem;
+}
+
+.service-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: 999px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    border: 1px solid;
+}
+
+.service-badge.activa {
+    background: rgba(6, 167, 125, 0.1);
+    color: var(--color-exito);
+    border-color: rgba(6, 167, 125, 0.25);
+}
+
+.service-badge.inactiva {
+    background: rgba(230, 57, 70, 0.08);
+    color: var(--color-peligro);
+    border-color: rgba(230, 57, 70, 0.2);
+}
+
+/* Acciones */
+.service-card-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.35rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid #f1f5f9;
+}
+
+.service-action-btn {
+    width: 34px;
+    height: 34px;
+    border-radius: 0.5rem;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    color: var(--color-gray);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 150ms ease;
+}
+
+.service-action-btn:hover {
+    background: var(--color-tercero);
+    color: var(--color-secundario);
+    border-color: var(--color-secundario);
+}
+
+.service-action-btn.danger:hover {
+    background: rgba(230, 57, 70, 0.1);
+    color: var(--color-peligro);
+    border-color: var(--color-peligro);
+}
+
+.service-action-btn.success:hover {
+    background: rgba(6, 167, 125, 0.1);
+    color: var(--color-exito);
+    border-color: var(--color-exito);
+}
+
+/* Formulario */
+.service-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.service-form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.service-form-full {
+    grid-column: 1 / -1;
+}
+
+.service-form-section-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding-top: 1rem;
+    margin: 0.5rem 0 0;
+    border-top: 1px solid #e2e8f0;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--color-principal);
+}
+
+.service-form-section-title i {
+    color: var(--color-secundario);
+}
+
+.service-form-error {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    background: rgba(230, 57, 70, 0.08);
+    color: var(--color-peligro);
+    border: 1px solid rgba(230, 57, 70, 0.25);
+    border-radius: 0.5rem;
+    font-size: 0.85rem;
+}
+
+.service-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    color: var(--color-principal);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.service-checkbox input {
+    accent-color: var(--color-secundario);
+}
+
+.service-sedes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill,
+            minmax(180px, 1fr));
+    gap: 0.5rem;
+}
+
+.service-sede-check {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.6rem 0.75rem;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-size: 0.85rem;
+}
+
+.service-sede-check:hover {
+    background: var(--color-tercero);
+    border-color: var(--color-secundario);
+}
+
+.service-sede-check input {
+    accent-color: var(--color-secundario);
+}
+
+.service-sede-check input:checked~span {
+    color: var(--color-secundario);
+    font-weight: 700;
+}
+
+.service-form-flags {
+    padding: 1rem;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.75rem;
+}
+
+/* Detalle */
+.service-detail {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.service-detail-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.service-detail-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg,
+            var(--color-secundario),
+            var(--color-principal));
+    color: var(--color-white);
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.service-detail-info h2 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--color-principal);
+    margin: 0 0 0.15rem;
+}
+
+.service-detail-info p {
+    font-size: 0.8rem;
+    color: var(--color-gray);
+    margin: 0 0 0.5rem;
+}
+
+.service-detail-badges {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.service-detail-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.service-detail-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.service-detail-item.full {
+    grid-column: 1 / -1;
+}
+
+.service-detail-label {
+    color: var(--color-gray);
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.service-detail-value {
+    color: var(--color-principal);
+    font-size: 0.95rem;
+    font-weight: 500;
+    overflow-wrap: anywhere;
+}
+
+.service-detail-section {
+    border-top: 1px solid #e2e8f0;
+    padding-top: 1rem;
+}
+
+.service-detail-section h3 {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--color-principal);
+    margin: 0 0 0.75rem;
+}
+
+.service-detail-sedes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.service-detail-sede-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.4rem 0.75rem;
+    background: var(--color-tercero);
+    color: var(--color-principal);
+    border-radius: 0.5rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .service-page {
+        padding: 1rem;
+    }
+
+    .service-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .service-header>button {
+        width: 100%;
+    }
+
+    .service-filters {
+        grid-template-columns: 1fr;
+    }
+
+    .service-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .service-form-grid,
+    .service-detail-grid {
+        grid-template-columns: 1fr;
+    }
+}
