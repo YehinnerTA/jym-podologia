@@ -11,6 +11,7 @@ const LINKS_BY_ROLE: Record<string, NavLink[]> = {
         { name: 'Dashboard', path: '/dashboard', icon: 'fa-solid fa-chart-pie' },
         { name: 'Citas', path: '/citas', icon: 'fa-solid fa-calendar-check' },
         { name: 'Personas', path: '/personas', icon: 'fa-solid fa-users' },
+        { name: 'Servicios', path: '/servicios', icon: 'fa-solid fa-stethoscope' },
         { name: 'Sedes', path: '/sedes', icon: 'fa-solid fa-hospital' },
         { name: 'Calendario', path: '/calendario', icon: 'fa-solid fa-calendar-days' },
     ],
@@ -32,14 +33,12 @@ export const useHeader = () => {
     const { sedes, selectedSede, setSelectedSede } = useCompany();
     const notifications = useHeaderNotifications();
     const mobileMenu = useHeaderMobileMenu();
-
     const nombreUsuario = user?.displayName || user?.email?.split('@')[0] || 'Usuario';
     const inicialUsuario = nombreUsuario.charAt(0).toUpperCase();
 
-    const sedeActiva = sedes.find(s => s.id === selectedSede) || null;
+    const sedeActiva = sedes.find((s) => s.id === selectedSede) || null;
     const multiplesSedes = sedes.length > 1;
 
-    // Links según el rol
     const navLinks = useMemo(() => {
         if (!role) return [];
         return LINKS_BY_ROLE[role] || [];
@@ -53,11 +52,15 @@ export const useHeader = () => {
     const handleNavigate = useCallback((path: string) => {
         navigate(path);
         mobileMenu.close();
-    }, [navigate, mobileMenu]);
+    },
+        [navigate, mobileMenu]
+    );
 
     const handleSedeChange = useCallback((sedeId: string) => {
         setSelectedSede(sedeId);
-    }, [setSelectedSede]);
+    },
+        [setSelectedSede]
+    );
 
     const handleLogoClick = useCallback(() => {
         navigate('/dashboard');

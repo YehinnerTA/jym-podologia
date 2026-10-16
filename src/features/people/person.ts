@@ -12,6 +12,7 @@ export interface Persona {
     email: string;
     direccion: string;
     sedesIds: string[];
+    sedeOrigenId?: string | null;
 
     // Solo médico
     especialidad: string;
@@ -35,7 +36,12 @@ export interface Persona {
 
 export type PersonaFormData = Omit<
     Persona,
-    'id' | 'authUid' | 'createdAt' | 'updatedAt' | 'createdBy'
+    | 'id'
+    | 'authUid'
+    | 'createdAt'
+    | 'updatedAt'
+    | 'createdBy'
+    | 'sedeOrigenId'
 >;
 
 export interface PersonaFormErrors {

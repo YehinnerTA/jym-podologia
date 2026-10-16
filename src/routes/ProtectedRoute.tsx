@@ -4,13 +4,38 @@ import { AppLoader } from '../components';
 
 interface Props {
     children: React.ReactNode;
+    allowedRoles?: string[];
 }
 
-export const ProtectedRoute: React.FC<Props> = ({ children }) => {
-    const { isAuthenticated, isLoading } = useAuth();
+export const ProtectedRoute: React.FC<Props> = ({
+    children,
+    allowedRoles,
+}) => {
+    const {
+        isAuthenticated,
+        isLoading,
+        role,
+    } = useAuth();
 
-    if (isLoading) return <AppLoader fullScreen message="Verificando sesión..." />;
-    if (!isAuthenticated) return <Navigate to="/login" replace />;
+    if (isLoading) {
+        return (
+            <AppLoader
+                fullScreen
+                message="Verificando sesión..."
+            />
+        );
+    }
+
+    if (!isAuthenticated) {
+        return <Navigate to="/login" replace />;
+    }
+
+    if (
+        allowedRoles &&
+        (!role || !allowedRoles.includes(role))
+    ) {
+        return <Navigate to="/dashboard" replace />;
+    }
 
     return <>{children}</>;
 };

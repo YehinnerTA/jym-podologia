@@ -4,15 +4,15 @@ import { SelectSede } from '../features/company/components/SelectSede';
 import { ProtectedRoute } from './ProtectedRoute';
 import { SedeList } from '../features/sedes/components/SedeList';
 import { PersonList } from '../features/people/components/PersonList';
+import { AppointmentList } from '../features/appointments/components/AppointmentList';
+import { ServiceList } from '../features/services/components/ServiceList';
 import MainLayout from '../pages/partials/MainLayout';
 
 export const AppRoutes: React.FC = () => {
     return (
         <Routes>
-            {/* Públicas */}
             <Route path="/login" element={<Login />} />
 
-            {/* Selector de sede */}
             <Route
                 path="/select-sede"
                 element={
@@ -22,7 +22,6 @@ export const AppRoutes: React.FC = () => {
                 }
             />
 
-            {/* Módulos internos */}
             <Route
                 path="/dashboard"
                 element={
@@ -53,6 +52,28 @@ export const AppRoutes: React.FC = () => {
                     <ProtectedRoute>
                         <MainLayout>
                             <PersonList />
+                        </MainLayout>
+                    </ProtectedRoute>
+                }
+            />
+
+            <Route
+                path="/citas"
+                element={
+                    <ProtectedRoute>
+                        <MainLayout>
+                            <AppointmentList />
+                        </MainLayout>
+                    </ProtectedRoute>
+                }
+            />
+
+            <Route
+                path="/servicios"
+                element={
+                    <ProtectedRoute allowedRoles={['admin']}>
+                        <MainLayout>
+                            <ServiceList />
                         </MainLayout>
                     </ProtectedRoute>
                 }
