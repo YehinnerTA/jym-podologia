@@ -18,18 +18,25 @@ export type HorarioAtencion = {
 
 export interface Sede {
     id: string;
+
+    // Identificación de la sede
     nombre: string;
-    ruc: string;
+
+    // Información de contacto y ubicación
     direccion: string;
     telefono: string;
     email: string;
-    esPredeterminada: boolean;
 
+    // Configuración de la sede
+    esPredeterminada: boolean;
     cuposPorHorario: number;
     habitaciones: number;
     horarioAtencion: HorarioAtencion;
 
+    // Estado
     activo: boolean;
+
+    // Auditoría
     createdAt?: string;
     updatedAt?: string;
     createdBy?: string;
@@ -39,7 +46,6 @@ export type SedeFormData = Omit<Sede, 'id' | 'createdAt' | 'updatedAt' | 'create
 
 export interface SedeFormErrors {
     nombre?: string;
-    ruc?: string;
     direccion?: string;
     telefono?: string;
     email?: string;
@@ -59,7 +65,6 @@ export const HORARIO_DEFAULT: HorarioAtencion = {
 
 export const SEDE_FORM_INICIAL: SedeFormData = {
     nombre: '',
-    ruc: '',
     direccion: '',
     telefono: '',
     email: '',
@@ -69,3 +74,8 @@ export const SEDE_FORM_INICIAL: SedeFormData = {
     horarioAtencion: HORARIO_DEFAULT,
     activo: true,
 };
+
+export interface SedeSelectorMenuProps {
+    onSelect?: (sedeId: string) => void;
+    redirectTo?: string;
+}

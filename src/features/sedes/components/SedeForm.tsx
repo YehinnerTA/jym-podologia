@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../../auth/context/AuthContext';
+
 import {
     AppModal,
     AppButton,
@@ -7,10 +8,21 @@ import {
     AppTimePicker,
     AppFormField,
 } from '../../../components';
+
 import { useSedeForm } from '../hooks/useSedeForm';
 import { sedeService } from '../services/sedeService';
-import { Sede } from '../sede';
-import { DIAS_LABELS, validateSedeForm, hasErrors } from '../utils/sedeHelpers';
+
+import {
+    Sede,
+    SedeFormData,
+    DiaSemana,
+} from '../sede';
+
+import {
+    DIAS_LABELS,
+    validateSedeForm,
+    hasErrors,
+} from '../utils/sedeHelpers';
 
 interface Props {
     isOpen: boolean;
@@ -19,10 +31,42 @@ interface Props {
     onSuccess: () => void;
 }
 
-const DIAS = ['lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado', 'domingo'];
+const DIAS: DiaSemana[] = [
+    'lunes',
+    'martes',
+    'miercoles',
+    'jueves',
+    'viernes',
+    'sabado',
+    'domingo',
+];
 
-export const SedeForm: React.FC<Props> = ({ isOpen, onClose, sede, onSuccess }) => {
-    const { user } = useAuth();
+const getSedeFormData = (
+    sede: Sede
+): SedeFormData => ({
+    nombre: sede.nombre,
+    direccion: sede.direccion,
+    telefono: sede.telefono,
+    email: sede.email,
+    esPredeterminada: sede.esPredeterminada,
+    cuposPorHorario: sede.cuposPorHorario,
+    habitaciones: sede.habitaciones,
+    horarioAtencion: sede.horarioAtencion,
+    activo: sede.activo,
+});
+
+export const SedeForm: React.FC<Props> = ({
+    isOpen,
+    onClose,
+    sede,
+    onSuccess,
+}) => {
+    const {
+        user,
+        role,
+        isAuthenticated,
+        isLoading: authLoading,
+    } = useAuth();
 
     const {
         data,
@@ -32,70 +76,87 @@ export const SedeForm: React.FC<Props> = ({ isOpen, onClose, sede, onSuccess }) 
         reset,
         getFieldError,
     } = useSedeForm(
-        sede
-            ? {
-                nombre: sede.nombre,
-                ruc: sede.ruc,
-                direccion: sede.direccion,
-                telefono: sede.telefono,
-                email: sede.email,
-                esPredeterminada: sede.esPredeterminada,
-                cuposPorHorario: sede.cuposPorHorario,
-                habitaciones: sede.habitaciones,
-                horarioAtencion: sede.horarioAtencion,
-                activo: sede.activo,
-            }
-            : undefined
+        sede ? getSedeFormData(sede) : undefined
     );
 
     const [isSaving, setIsSaving] = useState(false);
     const [apiError, setApiError] = useState('');
 
-    useEffect(() => {
-        if (isOpen) {
-            reset(
-                sede
-                    ? {
-                        nombre: sede.nombre,
-                        ruc: sede.ruc,
-                        direccion: sede.direccion,
-                        telefono: sede.telefono,
-                        email: sede.email,
-                        esPredeterminada: sede.esPredeterminada,
-                        cuposPorHorario: sede.cuposPorHorario,
-                        habitaciones: sede.habitaciones,
-                        horarioAtencion: sede.horarioAtencion,
-                        activo: sede.activo,
-                    }
-                    : undefined
-            );
-            setApiError('');
-        }
-    }, [isOpen, sede, reset]);
+    const canManageSedes =
+        isAuthenticated &&
+        role === 'admin' &&
+        !!user;
 
-    const handleSubmit = async (e?: React.FormEvent) => {
-        if (e) e.preventDefault();
+    useEffect(() => {
+        if (!isOpen) return;
+
+        reset(
+            sede ? getSedeFormData(sede) : undefined
+        );
+
+        setApiError('');
+    }, [
+        isOpen,
+        sede,
+        reset,
+    ]);
+
+    const handleSubmit = async (
+        event?: React.FormEvent
+    ) => {
+        event?.preventDefault();
+
+        if (isSaving) return;
+
         setApiError('');
 
-        // Validación con los datos actuales (no con el hook desincronizado)
-        const validationErrors = validateSedeForm(data);
+        // Solo administradores autenticados
+        // pueden crear o editar sedes.
+        if (authLoading || !canManageSedes || !user) {
+            setApiError(
+                'No tienes permisos para administrar sedes.'
+            );
+            return;
+        }
+
+        const validationErrors =
+            validateSedeForm(data);
 
         if (hasErrors(validationErrors)) {
             setErrors(validationErrors);
-            setApiError('Revisa los campos marcados en rojo.');
+            setApiError(
+                'Revisa los campos marcados en rojo.'
+            );
             return;
         }
 
         setIsSaving(true);
+
         try {
             if (sede) {
-                await sedeService.update(sede.id, data);
+                await sedeService.update(
+                    sede.id,
+                    data
+                );
             } else {
-                const newId = await sedeService.create(data, user?.uid || '');
+                await sedeService.create(
+                    data,
+                    user.uid
+                );
             }
+
             onSuccess();
-        } catch (error: any) {
-            setApiError(error?.message || 'Error al guardar. Intenta nuevamente.');
+        } catch (error: unknown) {
+            console.error(
+                'Error guardando sede:',
+                error
+            );
+
+            setApiError(
+                error instanceof Error
+                    ? error.message
+                    : 'Error al guardar. Intenta nuevamente.'
+            );
         } finally {
             setIsSaving(false);
         }
@@ -105,7 +166,11 @@ export const SedeForm: React.FC<Props> = ({ isOpen, onClose, sede, onSuccess }) 
         <AppModal
             isOpen={isOpen}
             onClose={onClose}
-            title={sede ? 'Editar Sede' : 'Nueva Sede'}
+            title={
+                sede
+                    ? 'Editar Sede'
+                    : 'Nueva Sede'
+            }
             icon="fa-solid fa-hospital"
             size="lg"
             footer={
@@ -117,22 +182,35 @@ export const SedeForm: React.FC<Props> = ({ isOpen, onClose, sede, onSuccess }) 
                     >
                         Cancelar
                     </AppButton>
+
                     <AppButton
                         variant="primary"
                         type="button"
                         loading={isSaving}
+                        disabled={
+                            authLoading ||
+                            !canManageSedes
+                        }
                         onClick={handleSubmit}
                         icon="fa-solid fa-floppy-disk"
                         iconPosition="left"
                     >
-                        {sede ? 'Guardar cambios' : 'Crear sede'}
+                        {sede
+                            ? 'Guardar cambios'
+                            : 'Crear sede'}
                     </AppButton>
                 </>
             }
         >
-            <form onSubmit={handleSubmit} className="sede-form">
+            <form
+                onSubmit={handleSubmit}
+                className="sede-form"
+            >
                 {apiError && (
-                    <div className="sede-form-api-error">
+                    <div
+                        className="sede-form-api-error"
+                        role="alert"
+                    >
                         <i className="fa-solid fa-circle-exclamation"></i>
                         <span>{apiError}</span>
                     </div>
@@ -147,21 +225,13 @@ export const SedeForm: React.FC<Props> = ({ isOpen, onClose, sede, onSuccess }) 
                     >
                         <AppInput
                             value={data.nombre}
-                            onChange={(v) => updateField('nombre', v)}
+                            onChange={(value) =>
+                                updateField(
+                                    'nombre',
+                                    value
+                                )
+                            }
                             placeholder="Sede Los Olivos"
-                        />
-                    </AppFormField>
-
-                    <AppFormField
-                        label="RUC"
-                        labelIcon="fa-solid fa-id-card"
-                        required
-                        error={getFieldError('ruc')}
-                    >
-                        <AppInput
-                            value={data.ruc}
-                            onChange={(v) => updateField('ruc', v.replace(/\D/g, '').slice(0, 11))}
-                            placeholder="20611145587"
                         />
                     </AppFormField>
 
@@ -172,7 +242,12 @@ export const SedeForm: React.FC<Props> = ({ isOpen, onClose, sede, onSuccess }) 
                     >
                         <AppInput
                             value={data.telefono}
-                            onChange={(v) => updateField('telefono', v)}
+                            onChange={(value) =>
+                                updateField(
+                                    'telefono',
+                                    value
+                                )
+                            }
                             placeholder="987654321"
                         />
                     </AppFormField>
@@ -184,7 +259,12 @@ export const SedeForm: React.FC<Props> = ({ isOpen, onClose, sede, onSuccess }) 
                     >
                         <AppInput
                             value={data.email}
-                            onChange={(v) => updateField('email', v)}
+                            onChange={(value) =>
+                                updateField(
+                                    'email',
+                                    value
+                                )
+                            }
                             placeholder="sede@jympodologia.com"
                             type="email"
                         />
@@ -199,7 +279,12 @@ export const SedeForm: React.FC<Props> = ({ isOpen, onClose, sede, onSuccess }) 
                         >
                             <AppInput
                                 value={data.direccion}
-                                onChange={(v) => updateField('direccion', v)}
+                                onChange={(value) =>
+                                    updateField(
+                                        'direccion',
+                                        value
+                                    )
+                                }
                                 placeholder="Av. Ejemplo 123, Distrito, Ciudad"
                             />
                         </AppFormField>
@@ -213,8 +298,21 @@ export const SedeForm: React.FC<Props> = ({ isOpen, onClose, sede, onSuccess }) 
                     >
                         <AppInput
                             type="number"
-                            value={String(data.cuposPorHorario)}
-                            onChange={(v) => updateField('cuposPorHorario', Math.max(1, parseInt(v) || 1))}
+                            value={String(
+                                data.cuposPorHorario
+                            )}
+                            onChange={(value) =>
+                                updateField(
+                                    'cuposPorHorario',
+                                    Math.max(
+                                        1,
+                                        parseInt(
+                                            value,
+                                            10
+                                        ) || 1
+                                    )
+                                )
+                            }
                             placeholder="1"
                         />
                     </AppFormField>
@@ -227,8 +325,21 @@ export const SedeForm: React.FC<Props> = ({ isOpen, onClose, sede, onSuccess }) 
                     >
                         <AppInput
                             type="number"
-                            value={String(data.habitaciones)}
-                            onChange={(v) => updateField('habitaciones', Math.max(1, parseInt(v) || 1))}
+                            value={String(
+                                data.habitaciones
+                            )}
+                            onChange={(value) =>
+                                updateField(
+                                    'habitaciones',
+                                    Math.max(
+                                        1,
+                                        parseInt(
+                                            value,
+                                            10
+                                        ) || 1
+                                    )
+                                )
+                            }
                             placeholder="1"
                         />
                     </AppFormField>
@@ -236,40 +347,104 @@ export const SedeForm: React.FC<Props> = ({ isOpen, onClose, sede, onSuccess }) 
 
                 <div className="sede-form-section">
                     <h3 className="sede-form-section-title">
-                        <i className="fa-solid fa-clock"></i> Horario de atención
+                        <i className="fa-solid fa-clock"></i>
+                        {' '}Horario de atención
                     </h3>
+
                     <div className="sede-form-horarios">
                         {DIAS.map((dia) => {
-                            const horario = data.horarioAtencion[dia as keyof typeof data.horarioAtencion];
-                            const activo = horario !== null;
+                            const horario =
+                                data.horarioAtencion?.[
+                                dia
+                                ] ?? null;
+
+                            const activo =
+                                horario !== null;
+
                             return (
-                                <div key={dia} className={`sede-horario-row ${!activo ? 'inactivo' : ''}`}>
+                                <div
+                                    key={dia}
+                                    className={`sede-horario-row ${!activo
+                                        ? 'inactivo'
+                                        : ''
+                                        }`}
+                                >
                                     <label className="sede-horario-check">
                                         <input
                                             type="checkbox"
                                             checked={activo}
-                                            onChange={(e) =>
+                                            onChange={(
+                                                event
+                                            ) =>
                                                 updateHorario(
                                                     dia,
-                                                    e.target.checked ? { inicio: '08:00', fin: '18:00' } : null
+                                                    event
+                                                        .target
+                                                        .checked
+                                                        ? {
+                                                            inicio:
+                                                                '08:00',
+                                                            fin:
+                                                                '18:00',
+                                                        }
+                                                        : null
                                                 )
                                             }
                                         />
-                                        <span className="sede-horario-dia">{DIAS_LABELS[dia]}</span>
+
+                                        <span className="sede-horario-dia">
+                                            {
+                                                DIAS_LABELS[
+                                                dia
+                                                ]
+                                            }
+                                        </span>
                                     </label>
-                                    {activo && horario && (
-                                        <div className="sede-horario-times">
-                                            <AppTimePicker
-                                                value={horario.inicio}
-                                                onChange={(v) => updateHorario(dia, { ...horario, inicio: v })}
-                                            />
-                                            <span className="sede-horario-sep">a</span>
-                                            <AppTimePicker
-                                                value={horario.fin}
-                                                onChange={(v) => updateHorario(dia, { ...horario, fin: v })}
-                                            />
-                                        </div>
-                                    )}
+
+                                    {activo &&
+                                        horario && (
+                                            <div className="sede-horario-times">
+                                                <AppTimePicker
+                                                    value={
+                                                        horario.inicio
+                                                    }
+                                                    onChange={(
+                                                        value
+                                                    ) =>
+                                                        updateHorario(
+                                                            dia,
+                                                            {
+                                                                ...horario,
+                                                                inicio:
+                                                                    value,
+                                                            }
+                                                        )
+                                                    }
+                                                />
+
+                                                <span className="sede-horario-sep">
+                                                    a
+                                                </span>
+
+                                                <AppTimePicker
+                                                    value={
+                                                        horario.fin
+                                                    }
+                                                    onChange={(
+                                                        value
+                                                    ) =>
+                                                        updateHorario(
+                                                            dia,
+                                                            {
+                                                                ...horario,
+                                                                fin:
+                                                                    value,
+                                                            }
+                                                        )
+                                                    }
+                                                />
+                                            </div>
+                                        )}
                                 </div>
                             );
                         })}
@@ -280,11 +455,21 @@ export const SedeForm: React.FC<Props> = ({ isOpen, onClose, sede, onSuccess }) 
                     <label className="sede-form-check">
                         <input
                             type="checkbox"
-                            checked={data.esPredeterminada}
-                            onChange={(e) => updateField('esPredeterminada', e.target.checked)}
+                            checked={
+                                data.esPredeterminada
+                            }
+                            onChange={(event) =>
+                                updateField(
+                                    'esPredeterminada',
+                                    event.target
+                                        .checked
+                                )
+                            }
                         />
+
                         <span>
-                            <i className="fa-solid fa-star"></i> Marcar como sede predeterminada
+                            <i className="fa-solid fa-star"></i>
+                            {' '}Marcar como sede predeterminada
                         </span>
                     </label>
 
@@ -292,10 +477,18 @@ export const SedeForm: React.FC<Props> = ({ isOpen, onClose, sede, onSuccess }) 
                         <input
                             type="checkbox"
                             checked={data.activo}
-                            onChange={(e) => updateField('activo', e.target.checked)}
+                            onChange={(event) =>
+                                updateField(
+                                    'activo',
+                                    event.target
+                                        .checked
+                                )
+                            }
                         />
+
                         <span>
-                            <i className="fa-solid fa-circle-check"></i> Sede activa
+                            <i className="fa-solid fa-circle-check"></i>
+                            {' '}Sede activa
                         </span>
                     </label>
                 </div>
