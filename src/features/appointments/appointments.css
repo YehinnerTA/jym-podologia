@@ -1,0 +1,908 @@
+/* ============================================
+   1. PÁGINA PRINCIPAL
+   ============================================ */
+.cita-page {
+    padding: 1.5rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    min-width: 0;
+}
+
+.cita-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.cita-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--color-principal);
+    margin: 0 0 0.25rem;
+    letter-spacing: -0.02em;
+}
+
+.cita-subtitle {
+    font-size: 0.9rem;
+    color: var(--color-gray);
+    opacity: 0.8;
+    margin: 0;
+    line-height: 1.5;
+}
+
+/* ============================================
+   2. FILTROS
+   ============================================ */
+
+.cita-filters-card {
+    margin-bottom: 1.25rem;
+}
+
+.cita-filters {
+    display: grid;
+    grid-template-columns: 2fr repeat(4, minmax(0, 1fr));
+    gap: 0.75rem;
+}
+
+.cita-filters>* {
+    min-width: 0;
+}
+
+.cita-filters-search {
+    min-width: 0;
+}
+
+/* ============================================
+   3. TABLA
+   ============================================ */
+
+.cita-table-wrapper {
+    margin-bottom: 1rem;
+    min-width: 0;
+}
+
+.cita-hora {
+    font-weight: 700;
+    color: var(--color-secundario);
+    font-family: monospace;
+}
+
+.cita-paciente-nombre {
+    font-weight: 600;
+    color: var(--color-principal);
+}
+
+.cita-paciente-dni {
+    font-size: 0.75rem;
+    color: var(--color-gray);
+    opacity: 0.7;
+    font-family: monospace;
+}
+
+.cita-duracion {
+    font-size: 0.75rem;
+    color: var(--color-gray);
+    opacity: 0.7;
+}
+
+/* ============================================
+   4. ESTADOS DE CITAS
+   ============================================ */
+
+.cita-status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.3rem 0.7rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border: 1px solid;
+    white-space: nowrap;
+}
+
+.cita-status-badge i {
+    font-size: 0.7rem;
+}
+
+/* ============================================
+   5. ACCIONES
+   ============================================ */
+
+.cita-actions {
+    display: flex;
+    gap: 0.35rem;
+    justify-content: flex-end;
+}
+
+.cita-action-btn {
+    width: 32px;
+    height: 32px;
+    flex: 0 0 32px;
+    border-radius: 0.5rem;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    color: var(--color-gray);
+    cursor: pointer;
+    transition:
+        background-color 150ms,
+        color 150ms,
+        border-color 150ms,
+        transform 150ms;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+}
+
+.cita-action-btn:hover {
+    background: var(--color-tercero);
+    color: var(--color-secundario);
+    border-color: var(--color-secundario);
+    transform: translateY(-1px);
+}
+
+.cita-action-btn:focus-visible {
+    outline: 2px solid var(--color-secundario);
+    outline-offset: 2px;
+}
+
+.cita-action-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.cita-action-btn.danger:hover {
+    background: rgba(230, 57, 70, 0.1);
+    color: var(--color-peligro);
+    border-color: var(--color-peligro);
+}
+
+/* ============================================
+   6. TARJETAS MÓVILES
+   ============================================ */
+
+.cita-cards-wrapper {
+    display: none;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.cita-card {
+    background: var(--color-white);
+    border-radius: 1rem;
+    padding: 1rem;
+    border: 1px solid #e2e8f0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    min-width: 0;
+}
+
+.cita-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.cita-card-hora {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-secundario);
+    font-family: monospace;
+}
+
+.cita-card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.cita-card-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--color-gray);
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+
+.cita-card-row i {
+    color: var(--color-secundario);
+    width: 14px;
+    flex: 0 0 14px;
+    text-align: center;
+    font-size: 0.75rem;
+}
+
+.cita-card-actions {
+    display: flex;
+    gap: 0.35rem;
+    justify-content: flex-end;
+    border-top: 1px solid #f1f5f9;
+    padding-top: 0.75rem;
+}
+
+/* ============================================
+   7. CAMPOS DEL FORMULARIO
+   ============================================ */
+
+.cita-datetime-input {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    min-height: 44px;
+    padding: 0.75rem 1rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.625rem;
+    background: var(--color-white);
+    color: var(--color-principal);
+    font-size: 0.9rem;
+    font-family: inherit;
+    box-sizing: border-box;
+    outline: none;
+
+    transition:
+        border-color 150ms,
+        box-shadow 150ms,
+        background-color 150ms;
+}
+
+.cita-datetime-input::placeholder {
+    color: #94a3b8;
+    opacity: 1;
+}
+
+.cita-datetime-input:hover:not(:disabled) {
+    border-color: #cbd5e1;
+}
+
+.cita-datetime-input:focus {
+    border-color: var(--color-secundario);
+    box-shadow: 0 0 0 3px rgba(0, 168, 181, 0.12);
+}
+
+.cita-datetime-input:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    background: #f8fafc;
+}
+
+.cita-datetime-input[type="datetime-local"] {
+    color-scheme: light;
+}
+
+/* ============================================
+   8. BÚSQUEDA RÁPIDA
+   PACIENTES Y PROFESIONALES
+   ============================================ */
+
+/*
+   Estas clases quedan disponibles para el
+   buscador por nombre o DNI.
+
+   El AppointmentForm actual todavía contiene
+   algunos estilos inline. Se mantienen sin
+   interferir con ellos.
+*/
+
+.cita-search {
+    position: relative;
+    width: 100%;
+    min-width: 0;
+}
+
+.cita-search-input {
+    width: 100%;
+    min-height: 44px;
+    padding: 0.75rem 1rem 0.75rem 2.5rem;
+    background: var(--color-white);
+    border: 1px solid #e2e8f0;
+    border-radius: 0.625rem;
+    box-sizing: border-box;
+    color: var(--color-principal);
+    font-family: inherit;
+    font-size: 0.9rem;
+    outline: none;
+}
+
+.cita-search-input:focus {
+    border-color: var(--color-secundario);
+    box-shadow: 0 0 0 3px rgba(0, 168, 181, 0.12);
+}
+
+.cita-search-icon {
+    position: absolute;
+    top: 22px;
+    left: 0.9rem;
+    transform: translateY(-50%);
+    font-size: 0.85rem;
+    color: var(--color-gray);
+    pointer-events: none;
+}
+
+.cita-search-results {
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 0;
+    right: 0;
+    z-index: 100;
+    max-height: 230px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    background: var(--color-white);
+    border: 1px solid #e2e8f0;
+    border-radius: 0.75rem;
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.14);
+}
+
+.cita-search-option {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    gap: 0.25rem;
+    padding: 0.75rem 0.9rem;
+    border: 0;
+    border-bottom: 1px solid #f1f5f9;
+    background: transparent;
+    color: var(--color-principal);
+    font-family: inherit;
+    text-align: left;
+    cursor: pointer;
+
+    transition: background-color 150ms;
+}
+
+.cita-search-option:last-child {
+    border-bottom: 0;
+}
+
+.cita-search-option:hover,
+.cita-search-option:focus-visible {
+    background: #f1f7fb;
+    outline: none;
+}
+
+.cita-search-option strong {
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.cita-search-option small {
+    font-size: 0.75rem;
+    color: var(--color-gray);
+}
+
+.cita-search-empty {
+    padding: 1rem;
+    text-align: center;
+    color: var(--color-gray);
+    font-size: 0.85rem;
+}
+
+.cita-selected-person {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin-top: 0.5rem;
+    color: #198568;
+    font-size: 0.8rem;
+    line-height: 1.4;
+}
+
+.cita-selected-person i {
+    flex-shrink: 0;
+}
+
+/* ============================================
+   9. DURACIÓN DE ATENCIÓN
+   ============================================ */
+
+.cita-duration {
+    width: 100%;
+    min-width: 0;
+    padding: 1rem;
+    box-sizing: border-box;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.875rem;
+    background: #f8fafc;
+}
+
+.cita-duration-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.cita-duration-title {
+    color: var(--color-principal);
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.cita-duration-default {
+    margin-top: 0.25rem;
+    color: var(--color-gray);
+    font-size: 0.8rem;
+}
+
+.cita-duration-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--color-principal);
+    font-size: 0.85rem;
+    cursor: pointer;
+    user-select: none;
+}
+
+.cita-duration-toggle input {
+    width: 16px;
+    height: 16px;
+    margin: 0;
+    accent-color: var(--color-secundario);
+    cursor: pointer;
+}
+
+.cita-duration-custom {
+    max-width: 220px;
+    margin-top: 0.9rem;
+}
+
+.cita-duration-info {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin: 0.75rem 0 0;
+    font-size: 0.85rem;
+    color: var(--color-principal);
+}
+
+.cita-duration-info i {
+    color: var(--color-secundario);
+}
+
+/* ============================================
+   10. REGLETA HORIZONTAL DE DISPONIBILIDAD
+   ============================================ */
+
+/*
+   Regleta continua, sin botones ni deslizador.
+
+   Verde: disponible
+   Gris: bloqueo temporal
+   Rojo: cita registrada
+   Azul: nueva cita asignada
+
+   Los intervalos y las marcas se generan
+   desde AppointmentForm.tsx.
+*/
+
+.cita-timeline {
+    width: 100%;
+    min-width: 0;
+    padding: 1rem;
+    box-sizing: border-box;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.875rem;
+    background: var(--color-white);
+}
+
+.cita-timeline-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-bottom: 0.9rem;
+}
+
+.cita-timeline-title {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--color-principal);
+}
+
+.cita-timeline-subtitle {
+    font-size: 0.8rem;
+    color: var(--color-gray);
+    margin: 0.2rem 0 0;
+}
+
+.cita-timeline-live {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    color: #198568;
+    font-size: 0.75rem;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.cita-timeline-live::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    flex: 0 0 8px;
+    border-radius: 50%;
+    background: #20ab78;
+    box-shadow: 0 0 0 3px rgba(32, 171, 120, 0.12);
+}
+
+.cita-timeline-date {
+    margin: 0 0 0.75rem;
+    color: var(--color-gray);
+    font-size: 0.8rem;
+    text-transform: capitalize;
+}
+
+/* Desplazamiento horizontal sin deformar la regla */
+.cita-timeline-scroll {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 0.25rem 0 0.75rem;
+    box-sizing: border-box;
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e1 transparent;
+    overscroll-behavior-x: contain;
+}
+
+.cita-timeline-scroll::-webkit-scrollbar {
+    height: 7px;
+}
+
+.cita-timeline-scroll::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 999px;
+}
+
+.cita-timeline-scroll::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 999px;
+}
+
+.cita-timeline-scroll::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+/* SVG generado por el formulario */
+.cita-timeline-svg,
+svg[aria-label="Regleta de disponibilidad del profesional"] {
+    display: block;
+    height: auto;
+    max-width: none;
+    flex-shrink: 0;
+    overflow: visible;
+}
+
+.cita-timeline-svg text,
+svg[aria-label="Regleta de disponibilidad del profesional"] text {
+    font-family: inherit;
+    font-variant-numeric: tabular-nums;
+    user-select: none;
+}
+
+.cita-timeline-svg line,
+svg[aria-label="Regleta de disponibilidad del profesional"] line {
+    shape-rendering: crispEdges;
+}
+
+.cita-timeline-legend {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.65rem 1.1rem;
+    margin-top: 0.65rem;
+    color: var(--color-gray);
+    font-size: 0.75rem;
+}
+
+.cita-timeline-legend span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    white-space: nowrap;
+}
+
+.cita-timeline-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    flex: 0 0 10px;
+    border-radius: 2px;
+}
+
+.cita-timeline-dot.libre {
+    background: #59b99a;
+}
+
+.cita-timeline-dot.temporal {
+    background: #9aa3af;
+}
+
+.cita-timeline-dot.registrada {
+    background: #dc7777;
+}
+
+.cita-timeline-dot.seleccion {
+    background: #4a93d3;
+}
+
+/* ============================================
+   11. RESUMEN DE HORARIO ASIGNADO
+   ============================================ */
+
+.cita-horario-resumen {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-top: 1rem;
+    padding: 0.9rem 1rem;
+    background: #f1f6fc;
+    border: 1px solid #dbeafe;
+    border-left: 3px solid #4a93d3;
+    border-radius: 0.65rem;
+}
+
+.cita-horario-resumen strong {
+    color: var(--color-principal);
+    font-size: 0.95rem;
+    font-variant-numeric: tabular-nums;
+}
+
+.cita-horario-resumen p {
+    margin: 0;
+    color: var(--color-gray);
+    font-size: 0.8rem;
+    line-height: 1.5;
+}
+
+.cita-horario-resumen small {
+    color: var(--color-gray);
+    font-size: 0.75rem;
+    line-height: 1.5;
+}
+
+/* Bloqueo temporal confirmado visualmente */
+.cita-bloqueo-activo {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    color: #198568;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.cita-bloqueo-activo i {
+    font-size: 0.75rem;
+}
+
+/* Estado mientras se busca disponibilidad */
+.cita-bloqueo-cargando {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    color: #a16b1d;
+    font-size: 0.8rem;
+}
+
+.cita-bloqueo-error {
+    padding: 0.75rem 0.9rem;
+    margin-top: 0.8rem;
+    border: 1px solid #fecaca;
+    background: #fef2f2;
+    border-radius: 0.65rem;
+    color: #b91c1c;
+    font-size: 0.8rem;
+    line-height: 1.5;
+}
+
+/* ============================================
+   12. FORMULARIO DE CITAS
+   ============================================ */
+
+.service-form {
+    min-width: 0;
+}
+
+.service-form-grid {
+    min-width: 0;
+}
+
+.service-form-grid>* {
+    min-width: 0;
+}
+
+.service-form-full {
+    min-width: 0;
+}
+
+/*
+   Evita que el SVG, los buscadores o
+   los campos extensos ensanchen el modal.
+*/
+.service-form-full svg {
+    flex-shrink: 0;
+}
+
+/* ============================================
+   13. RESPONSIVE - TABLETS
+   ============================================ */
+
+@media (max-width: 1024px) {
+    .cita-filters {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .cita-filters-search {
+        grid-column: 1 / -1;
+    }
+
+    .cita-page {
+        padding: 1.25rem;
+    }
+}
+
+/* ============================================
+   14. RESPONSIVE - MÓVILES
+   ============================================ */
+
+@media (max-width: 768px) {
+    .cita-page {
+        padding: 1rem;
+    }
+
+    .cita-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.9rem;
+    }
+
+    .cita-header>button {
+        width: 100%;
+    }
+
+    .cita-title {
+        font-size: 1.5rem;
+    }
+
+    .cita-filters {
+        grid-template-columns: 1fr;
+        gap: 0.65rem;
+    }
+
+    .cita-filters-search {
+        grid-column: auto;
+    }
+
+    .cita-table-wrapper {
+        display: none;
+    }
+
+    .cita-cards-wrapper {
+        display: flex;
+    }
+
+    .cita-card {
+        padding: 0.9rem;
+    }
+
+    .cita-card-header {
+        gap: 0.5rem;
+    }
+
+    .cita-status-badge {
+        font-size: 0.7rem;
+    }
+
+    .cita-timeline {
+        padding: 0.8rem;
+        border-radius: 0.75rem;
+    }
+
+    .cita-timeline-header {
+        gap: 0.6rem;
+    }
+
+    .cita-timeline-title {
+        font-size: 0.85rem;
+    }
+
+    .cita-timeline-scroll {
+        margin-top: 0.35rem;
+        padding-bottom: 0.85rem;
+    }
+
+    .cita-timeline-legend {
+        gap: 0.5rem 0.8rem;
+        font-size: 0.7rem;
+    }
+
+    .cita-horario-resumen {
+        padding: 0.75rem 0.85rem;
+    }
+
+    .cita-duration {
+        padding: 0.85rem;
+    }
+
+    .cita-duration-header {
+        flex-direction: column;
+    }
+
+    .cita-duration-custom {
+        max-width: 100%;
+    }
+
+    .cita-search-results {
+        max-height: 200px;
+    }
+
+    .cita-datetime-input {
+        font-size: 16px;
+    }
+}
+
+/* ============================================
+   15. PANTALLAS MUY PEQUEÑAS
+   ============================================ */
+
+@media (max-width: 400px) {
+    .cita-page {
+        padding: 0.75rem;
+    }
+
+    .cita-title {
+        font-size: 1.35rem;
+    }
+
+    .cita-card {
+        padding: 0.75rem;
+    }
+
+    .cita-timeline {
+        padding: 0.65rem;
+    }
+
+    .cita-timeline-legend {
+        gap: 0.45rem 0.65rem;
+    }
+
+    .cita-horario-resumen strong {
+        font-size: 0.88rem;
+    }
+
+    .cita-datetime-input {
+        padding: 0.7rem 0.8rem;
+    }
+}
+
+/* ============================================
+   16. ACCESIBILIDAD
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .cita-action-btn,
+    .cita-datetime-input,
+    .cita-search-input,
+    .cita-search-option {
+        transition: none;
+    }
+}
